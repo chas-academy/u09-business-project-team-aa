@@ -5,10 +5,10 @@ const wgerAPI = axios.create({
 });
 
 export function getExercises() {
-  return wgerAPI.get('exercise/', {
+  return wgerAPI.get('exerciseinfo/', {
     params: {
       language: 2, // English
-      status: 2,   // Published only
+      status: 2,   // Published
     },
   });
 }
