@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getExercises } from '../api/api'; // Adjust path if needed
+import { getExercises } from '../api/wger';
 
 export default function Dashboard() {
   const [exercises, setExercises] = useState([]);
