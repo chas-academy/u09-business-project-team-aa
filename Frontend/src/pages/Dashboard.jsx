@@ -25,7 +25,7 @@ export default function Dashboard() {
       <h1>Exercises</h1>
       <ul>
         {exercises.map(ex => (
-          <li key={ex.id}>{ex.name}</li>
+          <li key={ex.id}>{ex.name || 'Unnamed Exercise'}</li>
         ))}
       </ul>
     </div>
