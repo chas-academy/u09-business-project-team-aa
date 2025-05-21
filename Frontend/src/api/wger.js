@@ -2,10 +2,13 @@ import axios from 'axios';
 
 const wgerAPI = axios.create({
   baseURL: 'https://wger.de/api/v2/',
-  // No Authorization header needed for public GET requests here
 });
 
 export function getExercises() {
-  // Get only approved English exercises
-  return wgerAPI.get('exerciseinfo/?language=2');
+  return wgerAPI.get('exercise/', {
+    params: {
+      language: 2, // English
+      status: 2,   // Published only
+    },
+  });
 }
