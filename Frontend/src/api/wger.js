@@ -10,7 +10,12 @@ const wgerAPI = axios.create({
   },
 });
 
-// Function to get exercises list
+// Function to get approved exercises in English only
 export function getExercises() {
-  return wgerAPI.get('exercise/');
+  return wgerAPI.get('exercise/', {
+    params: {
+      language: 2, // English
+      status: 2,   // Approved
+    },
+  });
 }
