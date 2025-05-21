@@ -7,5 +7,5 @@ const wgerAPI = axios.create({
 
 export function getExercises() {
   // Get only approved English exercises
-  return wgerAPI.get('exercise/?language=2&status=2');
+  return wgerAPI.get('exerciseinfo/?language=2');
 }
