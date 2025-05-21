@@ -12,3 +12,6 @@ export function getExercises() {
     },
   });
 }
+export function getExerciseDetails(id) {
+  return wgerAPI.get(`exerciseinfo/${id}/`);
+}
