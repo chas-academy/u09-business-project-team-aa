@@ -8,6 +8,7 @@ export default function Dashboard() {
   useEffect(() => {
     getExercises()
       .then(res => {
+        console.log('api response:', res.data);
         setExercises(res.data.results);
         setLoading(false);
       })
