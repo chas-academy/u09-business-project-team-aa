@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getExercises } from '../api/wger';
+import { getExercises } from '../api/api'; // Adjust path if needed
 
 export default function Dashboard() {
   const [exercises, setExercises] = useState([]);
@@ -8,7 +8,7 @@ export default function Dashboard() {
   useEffect(() => {
     getExercises()
       .then(res => {
-        console.log('api response:', res.data);
+        // API returns data inside res.data.results
         setExercises(res.data.results);
         setLoading(false);
       })
@@ -20,12 +20,14 @@ export default function Dashboard() {
 
   if (loading) return <p>Loading exercises...</p>;
 
+  if (exercises.length === 0) return <p>No exercises found.</p>;
+
   return (
     <div>
       <h1>Exercises</h1>
       <ul>
-        {exercises.filter(ex => ex.name).map(ex => (
-            <li key={ex.id}>{ex.name}</li>
+        {exercises.map(ex => (
+          <li key={ex.id}>{ex.name || 'Unnamed Exercise'}</li>
         ))}
       </ul>
     </div>
