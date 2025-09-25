@@ -17,11 +17,10 @@ const Recipes = ({ token }) => {
 
     const saveRecipe = async (recipe) => {
         try {
-            await axios.post(
-                'http://localhost:8080/api/recipes/save', 
-                {recipe}, 
-                { headers: { Authorization: `Bearer ${token}` } }
-            );
+          await axios.post('http://localhost:8080/api/saved', { recipe }, {
+         headers: { Authorization: `Bearer ${token}` }
+    });
+
             alert('Recipe saved!');
         } catch (error) {
             console.error('Error saving recipe:', error);

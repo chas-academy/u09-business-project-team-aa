@@ -5,25 +5,23 @@ const User = require('../models/User');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// Register
 router.post('/register', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-
-        // Check if user already exists
-        const existingUser = await User.findOne({ email });
-        if (existingUser) return res.status(400).json({ error: 'Email already in use' });
-
-        // Create new user
-        const user = new User({ email, password });
-        await user.save();
-
-        // Generate token
-        const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1d' });
-        res.json({ token });
-    } catch (err) {
-        res.status(400).json({ error: 'Registration failed', details: err.message });
+  try {
+    const { email, password } = req.body;
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      console.log('Email already exists:', email);
+      return res.status(400).json({ error: 'Email already in use' });
     }
+
+    const user = new User({ email, password });
+    await user.save();
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1d' });
+    res.json({ token });
+  } catch (err) {
+    console.error('Registration error:', err);
+    res.status(400).json({ error: 'Registration failed', details: err.message });
+  }
 });
 
 // Login

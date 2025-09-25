@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
 const Saved = require('../models/Saved');
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || 'secretkey';
 
-// auth middleware
-function auth(req, res, next) { 
+// Auth middleware
+function auth(req, res, next) {
     const header = req.headers.authorization;
     if (!header) return res.status(401).json({ error: 'No token provided' });
 
@@ -21,23 +20,43 @@ function auth(req, res, next) {
     }
 }
 
-// save recipes for user
+// Save a recipe for the user
 router.post('/', auth, async (req, res) => {
- const saved = new Saved({ ...req.body, userId: req.userId });
- await saved.save();
- res.json(saved);
+    const { recipe } = req.body;
+    if (!recipe) return res.status(400).json({ error: 'No recipe provided' });
+
+    try {
+        const saved = new Saved({
+            userId: req.userId,
+            title: recipe.title,
+            recipeId: recipe.id,
+            image: recipe.image
+        });
+        await saved.save();
+        res.json(saved);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to save recipe', details: err.message });
+    }
 });
 
-// get saved recipes for user
+// Get all saved recipes for the user
 router.get('/', auth, async (req, res) => {
- const recipes = await Saved.find({ userId: req.userId });
- res.json(recipes);
+    try {
+        const recipes = await Saved.find({ userId: req.userId });
+        res.json(recipes);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch saved recipes', details: err.message });
+    }
 });
 
-// delete saved recipe by id
+// Delete a saved recipe
 router.delete('/:id', auth, async (req, res) => {
-    await Saved.findOneAndDelete({ _id: req.params.id, userId: req.userId });
-    res.json({ message: 'Deleted successfully' });
+    try {
+        await Saved.findOneAndDelete({ _id: req.params.id, userId: req.userId });
+        res.json({ message: 'Deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to delete recipe', details: err.message });
+    }
 });
 
 module.exports = router;
