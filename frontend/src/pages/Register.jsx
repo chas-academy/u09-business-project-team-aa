@@ -20,7 +20,7 @@ const Register = ({ setToken }) => {
     };
 
     return (
-        <div>
+        <div className="container">
             <h1>Register</h1>
             <form onSubmit={handleRegister}>
                 <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />

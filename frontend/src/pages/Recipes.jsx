@@ -29,22 +29,23 @@ const Recipes = ({ token }) => {
     };
 
     return (
-        <div>
-            <h1>Recipe Search</h1>
-            <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search for recipes..."
-            />
-            <button onClick={searchRecipes}>Search</button>
-            
-            <div>
-                {recipes.map((recipe) => (
-                    <RecipeCard key={recipe.id} recipe={recipe} saveRecipe={saveRecipe} />
-                ))}
-            </div>
-        </div>
+    <div className="container">
+      <h1>Recipe Search</h1>
+      <form onSubmit={(e) => { e.preventDefault(); searchRecipes(); }}>
+        <input type="text" placeholder="Search for recipes..." value={query} onChange={(e) => setQuery(e.target.value)} />
+        <button type="submit">Search</button>
+      </form>
+
+      <div className="grid">
+        {recipes.map((recipe) => (
+          <div key={recipe.id} className="card">
+            <img src={recipe.image} alt={recipe.title} />
+            <h2>{recipe.title}</h2>
+            <button onClick={() => saveRecipe(recipe)}>Save</button>
+          </div>
+        ))}
+      </div>
+    </div>
     );
 };
 

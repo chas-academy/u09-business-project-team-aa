@@ -5,6 +5,7 @@ import Recipes from './pages/Recipes';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import './styles/global.css';
 
 function App() {
     const [token, setToken] = useState(localStorage.getItem('token') || '');

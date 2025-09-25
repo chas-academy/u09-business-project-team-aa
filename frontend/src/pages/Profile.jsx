@@ -34,20 +34,18 @@ const Profile = ({ token }) => {
     };
 
     return (
-        <div>
-            <h1>Your Saved Recipes</h1>
-            {saved.map(recipe => (
-                <div key={recipe._id} style={{ marginBottom: '20px' }}>
-                    <RecipeCard recipe={recipe} />
-                    <button 
-                        onClick={() => handleDelete(recipe._id)} 
-                        style={{ marginTop: '10px', color: 'white', background: 'red', border: 'none', padding: '8px', borderRadius: '5px', cursor: 'pointer' }}
-                    >
-                        Remove
-                    </button>
-                </div>
-            ))}
-        </div>
+          <div className="container">
+      <h1>Your Saved Recipes</h1>
+      <div className="grid">
+        {saved.map(recipe => (
+          <div key={recipe._id} className="card">
+            <img src={recipe.image} alt={recipe.title} />
+            <h2>{recipe.title}</h2>
+            <button onClick={() => handleDelete(recipe._id)}>Remove</button>
+          </div>
+        ))}
+      </div>
+    </div>
     );
 };
 

@@ -21,7 +21,7 @@ const Login = ({ setToken }) => {
     };
 
     return (
-        <div>
+        <div className="container">
             <h1>Login</h1>
             <form onSubmit={handleLogin}>
                 <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
