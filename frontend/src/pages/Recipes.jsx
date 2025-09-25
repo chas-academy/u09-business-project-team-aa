@@ -8,7 +8,7 @@ const Recipes = ({ token }) => {
 
     const searchRecipes = async () => {
         try {
-            const res = await axios.get(`http://localhost:8080/api/recipes/search?query=${query}`);
+            const res = await axios.get(`http://localhost:8080/api/recipes/query=${query}`);
             setRecipes(res.data.results);
         } catch (error) {
             console.error('Error fetching recipes:', error);
