@@ -15,10 +15,12 @@ mongoose.connect(process.env.MONGODB_URI)
 // import routes
 const authRoutes = require('./routes/authRoutes');
 const savedRoutes = require('./routes/savedRoutes');
+const apiRoutes = require('./routes/apiRoutes');
 
 // use routes
 app.use('/api/auth', authRoutes);
 app.use('/api/saved', savedRoutes);
+app.use('/api/recipes', apiRoutes);
 
 // test route
 app.get('/', (req, res) => res.send('backend is running'));
