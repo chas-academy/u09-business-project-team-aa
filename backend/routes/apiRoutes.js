@@ -6,9 +6,9 @@ const SPOON_API = 'https://api.spoonacular.com/recipes';
 const API_KEY = process.env.SPOONACULAR_API_KEY;
 
 // search for recipes
-router.get('/search', async (req, res) => {
+router.get('/:query', async (req, res) => {
     try {
-        const { query } = req.query;
+        const { query } = req.params;
         const response = await axios.get(`${SPOON_API}/complexSearch`, {
             params: { 
                 query, 
